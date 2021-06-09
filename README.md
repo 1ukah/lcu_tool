@@ -1,7 +1,7 @@
 # PHTOOLS
 *An application that combine requests using **LCU API** into a hub of features for **League of Legends**.*
 
-### Features
+## Features
 **Change Availability**
 - Change your status on the league client(Online, Offline, Away & LoL+)
 
