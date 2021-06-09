@@ -27,7 +27,7 @@
 - Crash your current match lobby(DON'T WAIT TOO LONG TO CRASH, MAX 4 SECONDS BEFORE THE GAME STARTS!)
 
 **Free Tristana + Riot Girl skin**
-- Gives you the champion Tristana + Riot Girl skin*
+- Gives you the champion Tristana + Riot Girl skin
 
 ### Screenshot
 ![ScreenShot1](https://i.imgur.com/tHEzxiz.png)
