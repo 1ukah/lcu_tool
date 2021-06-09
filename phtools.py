@@ -50,9 +50,9 @@ async def getOption(connection):
     system('cls')
 
 async def getInfo(connection):
-    summoner = await connection.request("GET", "/lol-summoner/v1/current-summoner")
-    if summoner.status == 200:
-        data = await summoner.json()
+    response = await connection.request("GET", "/lol-summoner/v1/current-summoner")
+    if response.status == 200:
+        data = await response.json()
     else:
         print(f"[▶] The operation was stopped due to an error during the request. ERROR CODE: {response.status}")
         globalSleep()
@@ -98,8 +98,8 @@ async def setMobile(connection):
 
 async def setIcon(connection):
     id = int(input("[▲] Icon ID: "))
-    icon = await connection.request("PUT", "/lol-chat/v1/me", data={"icon": id})
-    if icon.status == 201:
+    response = await connection.request("PUT", "/lol-chat/v1/me", data={"icon": id})
+    if response.status == 201:
         print("[▲] The request was successfully done, your icon has been changed!")
         globalSleep()
     else:
@@ -108,8 +108,8 @@ async def setIcon(connection):
 
 async def setBackground(connection):
     id = int(input("[▲] Background ID: "))
-    icon = await connection.request("POST", "/lol-summoner/v1/current-summoner/summoner-profile", data={"key": "backgroundSkinId", "value": id})
-    if icon.status == 200:
+    response = await connection.request("POST", "/lol-summoner/v1/current-summoner/summoner-profile", data={"key": "backgroundSkinId", "value": id})
+    if response.status == 200:
         print("[▲] The request was successfully done, your profile background has been changed!")
         globalSleep()
     else:
