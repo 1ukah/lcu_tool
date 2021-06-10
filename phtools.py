@@ -198,6 +198,7 @@ async def aramBoost(connection):
         globalSleep()
         
 async def lobbyCrasher(connection):
+    await connection.request("POST", "/lol-gameflow/v1/session/request-enter-gameflow")
     await connection.request("DELETE", "/lol-lobby/v2/lobby")
     queue = {'queueId': 1110}
     await connection.request("POST", "/lol-lobby/v2/matchmaking/quick-search", data=queue)
