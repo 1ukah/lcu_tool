@@ -29,5 +29,9 @@
 **Free Tristana + Riot Girl skin**
 ```Gives you the champion Tristana and Riot Girl skin.```
 
-### Screenshot
+### Screenshot & Video Showcase
 ![ScreenShot1](https://i.imgur.com/7cTsbBJ.png)
+![Video](https://youtu.be/e0pV9hGkOKU)
+
+
+
