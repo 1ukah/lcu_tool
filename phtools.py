@@ -98,13 +98,22 @@ async def setMobile(connection):
 
 async def setIcon(connection):
     id = int(input("[▲] Icon ID: "))
-    response = await connection.request("PUT", "/lol-chat/v1/me", data={"icon": id})
-    if response.status == 201:
-        print("[▲] The request was successfully done, your icon has been changed!")
-        globalSleep()
+    if id == 29:
+        response = await connection.request("PUT", "/lol-summoner/v1/current-summoner/icon", data={"profileIconId": id})
+        if response.status == 201:
+            print("[▲] The request was successfully done, your icon has been changed!")
+            globalSleep()
+        else:
+            print(f"[▶] The operation was stopped due to an error during the request. ERROR CODE: {response.status}")
+            globalSleep()
     else:
-        print(f"[▶] The operation was stopped due to an error during the request. ERROR CODE: {response.status}")
-        globalSleep()
+        response = await connection.request("PUT", "/lol-chat/v1/me", data={"icon": id})
+        if response.status == 201:
+            print("[▲] The request was successfully done, your icon has been changed!")
+            globalSleep()
+        else:
+            print(f"[▶] The operation was stopped due to an error during the request. ERROR CODE: {response.status}")
+            globalSleep()
 
 async def setBackground(connection):
     id = int(input("[▲] Background ID: "))
