@@ -24,10 +24,10 @@
 ```Boost skins on Aram for free.```
 
 **Lobby Crasher**
-```Crash your current match lobby(DON'T WAIT TOO LONG TO CRASH, MAX 4 SECONDS BEFORE THE GAME STARTS!)```
+```Crash your current match lobby(Wait until EVERYONE on the lobby lock their champions and then you crash. After the lobby has been crashed you need to wait inside the TFT Tutorial until the lobby countdown stay at 0 seconds left. In easier words, you need to wait around 40-50 seconds before leaving the TFT Tutorial).```
 
 **Free Tristana + Riot Girl skin**
 ```Gives you the champion Tristana and Riot Girl skin.```
 
 ### Screenshot
-![ScreenShot1](https://i.imgur.com/tHEzxiz.png)
+![ScreenShot1](https://i.imgur.com/7cTsbBJ.png)
