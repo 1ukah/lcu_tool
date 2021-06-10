@@ -9,7 +9,7 @@ import psutil
 disable_warnings()
 
 def newLine():
-    print("="*35)
+    print("="*45)
 
 def globalSleep():
     sleep(3.5)
@@ -21,16 +21,16 @@ connector = Connector()
 
 # If LeagueClient is running we continue, if not we return
 if "LeagueClient.exe" in (p.name() for p in psutil.process_iter()):
-    print("[▲] The League Client was found.")
+    print("[▲] The League Client was found!")
     sleep(2.5)
 else:
-    print("[▶] League Client was not found. Open or restart the client!")
+    print("[▶] League Client was not found! Open or restart the client.")
     sleep(10)
     sys.exit()
 
 def Menu():
     system('cls')
-    print("           ▶ Requests ◀")
+    print(u"           ▶ Requests ◀")
     newLine()
     print("""[1] -> Change Availability
 [2] -> Icon Changer
@@ -129,7 +129,7 @@ async def deleteFriends(connection):
                 delete = await connection.request("DELETE", f"/lol-chat/v1/friends/{x}")
                 if delete.status == 204:
                     print(f"[▲] The summoner '{name}' has been deleted from your friend list.")
-                    print("[▲] The operation was successfully done, your friend list has been cleared!")
+            print("[▲] The operation was successfully done, your friend list has been cleared!")
         elif choice == "NO" or "N":
             print(f"[▶] The operation was stopped.")
     globalSleep()
@@ -152,7 +152,7 @@ async def practiceTool(connection):
     'isCustom': True
     }
     await connection.request("POST", "/lol-lobby/v2/lobby", data = LobbyConfig)
-    print("[▲] The Practice Tool lobby has been crated.")
+    print("[▲] The Practice Tool lobby has been created.")
     globalSleep()
 
 async def autoAccept(connection):
@@ -202,6 +202,7 @@ async def lobbyCrasher(connection):
     await connection.request("DELETE", "/lol-lobby/v2/lobby")
     queue = {'queueId': 1110}
     await connection.request("POST", "/lol-lobby/v2/matchmaking/quick-search", data=queue)
+    sleep(1)
     print("[▲] The lobby has been successfully crashed.")
     globalSleep()
 
@@ -227,24 +228,24 @@ async def connect(connection):
 [4] -> LoL+
 [5] -> Return to menu""")
             newLine()
-            escolha = int(input("[▲] Mode: "))
-            if escolha == 1:
+            modeChoice = int(input("[▲] Mode: "))
+            if modeChoice == 1:
                 await setOnline(connection)
                 Menu()
                 await getOption(connection)
-            elif escolha == 2:
+            elif modeChoice == 2:
                 await setOffline(connection)
                 Menu()
                 await getOption(connection)
-            elif escolha == 3:
+            elif modeChoice == 3:
                 await setAway(connection)
                 Menu()
                 await getOption(connection)
-            elif escolha == 4:
+            elif modeChoice == 4:
                 await setMobile(connection)
                 Menu()
                 await getOption(connection)
-            elif escolha == 5:
+            elif modeChoice == 5:
                 globalSleep()
                 Menu()
                 await getOption(connection)
