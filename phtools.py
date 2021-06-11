@@ -30,7 +30,7 @@ else:
 
 def Menu():
     system('cls')
-    print(u"           ▶ Requests ◀")
+    print(u"           > Requests <")
     newLine()
     print("""[1] -> Change Availability
 [2] -> Icon Changer
@@ -138,6 +138,7 @@ async def deleteFriends(connection):
                 delete = await connection.request("DELETE", f"/lol-chat/v1/friends/{x}")
                 if delete.status == 204:
                     print(f"[▲] The summoner '{name}' has been deleted from your friend list.")
+                sleep(0.8)
             print("[▲] The operation was successfully done, your friend list has been cleared!")
         elif choice == "NO" or "N":
             print(f"[▶] The operation was stopped.")
