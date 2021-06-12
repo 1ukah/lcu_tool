@@ -5,60 +5,45 @@ from os import system
 import ctypes
 import sys
 import psutil
+import subprocess as sub
 
+ctypes.windll.kernel32.SetConsoleTitleW("▶ PHTOOLS ◀")
 disable_warnings()
+connector = Connector()
 
 def newLine():
     print("="*45)
 
 def globalSleep():
-    sleep(3.5)
+    sleep(2)
 
-ctypes.windll.kernel32.SetConsoleTitleW("▶ Requests ◀")
-
-# Initializing LCU_DRIVER
-connector = Connector()
-
-# If LeagueClient is running we continue, if not we return
-if "LeagueClient.exe" in (p.name() for p in psutil.process_iter()):
-    print("[▲] The League Client was found!")
-    sleep(2.5)
-else:
-    print("[▶] League Client was not found! Open or restart the client.")
-    sleep(10)
-    sys.exit()
+while "LeagueClient.exe" not in (p.name() for p in psutil.process_iter()):
+    system('cls')
+    print("[▶] The League Client was not found. Open ou restart the client!")
+    sleep(2)
 
 def Menu():
     system('cls')
-    print(u"           > Requests <")
+    print("[PHTOOLS] Requests")
     newLine()
-    print("""[1] -> Change Availability
-[2] -> Icon Changer
-[3] -> Background Changer
-[4] -> Remove all friends
-[5] -> Practice Tool with bots
-[6] -> Auto Accept
-[7] -> Aram Boost
-[8] -> Lobby Crasher
-[9] -> Get free Tristana + Riot Girl skin
-[0] -> Exit """)
+    print("""[0]  -> Exit
+[1]  -> Change Availability
+[2]  -> Icon Changer
+[3]  -> Background Changer
+[4]  -> Remove all friends
+[5]  -> Practice Tool with bots
+[6]  -> Auto Accept
+[7]  -> Aram Boost
+[8]  -> Get free Tristana + Riot Girl skin
+[9]  -> Lobby Crasher
+[10] -> Anti Lobby Crasher
+[11] -> Multiple Clients""")
 
 async def getOption(connection):
     global menuOption
     newLine()
     menuOption = int(input("[▲] Function: "))
     system('cls')
-
-async def getInfo(connection):
-    response = await connection.request("GET", "/lol-summoner/v1/current-summoner")
-    if response.status == 200:
-        data = await response.json()
-    else:
-        print(f"[▶] The operation was stopped due to an error during the request. ERROR CODE: {response.status}")
-        globalSleep()
-
-    print(f"Name: {data['displayName']}")
-    print(f"Level: {data['summonerLevel']}")
 
 async def setOnline(connection):
     response = await connection.request("PUT", "/lol-chat/v1/me", data={"availability": "chat"})
@@ -161,9 +146,13 @@ async def practiceTool(connection):
     },
     'isCustom': True
     }
-    await connection.request("POST", "/lol-lobby/v2/lobby", data = LobbyConfig)
-    print("[▲] The Practice Tool lobby has been created.")
-    globalSleep()
+    response = await connection.request("POST", "/lol-lobby/v2/lobby", data = LobbyConfig)
+    if response.status == 200:
+        print("[▲] The Practice Tool lobby has been created.")
+        globalSleep()
+    else:
+        print(f"[▶] The operation was stopped due to an error during the request. ERROR CODE: {response.status}")
+        globalSleep()
 
 async def autoAccept(connection):
     while True:
@@ -189,16 +178,13 @@ async def autoAccept(connection):
 async def aramBoost(connection):
     select = await connection.request("GET", "/lol-champ-select/v1/session")
     response = await select.json()
-
     if select.status == 404:
         print("[▶] You are only able to use Aram Boost during a champion select.")
         globalSleep()
-
     elif response["isCustomGame"] == True:
         print(response)
         print("[▶] You can not use Aram Boost in a custom game.")
         globalSleep()
-
     elif select.status == 200:
         print("[▲] Press any key to use the Aram Boost.")
         input()
@@ -206,7 +192,13 @@ async def aramBoost(connection):
         system('cls')
         print("[▲] The request was successfully done, your Aram lobby has been boosted!")
         globalSleep()
-        
+
+async def getTristana(connection):
+    await connection.request("POST", "/lol-login/v1/session/invoke?destination=inventoryService&method=giftFacebookFan&args=[]")
+    print("[▲] The Tristana + Riot Girl skin has been activated. Please restart your client!")
+    sleep(10)
+    sys.exit()
+
 async def lobbyCrasher(connection):
     await connection.request("POST", "/lol-gameflow/v1/session/request-enter-gameflow")
     await connection.request("DELETE", "/lol-lobby/v2/lobby")
@@ -216,17 +208,30 @@ async def lobbyCrasher(connection):
     print("[▲] The lobby has been successfully crashed.")
     globalSleep()
 
-async def getTristana(connection):
-    await connection.request("POST", "/lol-login/v1/session/invoke?destination=inventoryService&method=giftFacebookFan&args=[]")
-    print("[▲] The Tristana + Riot Girl skin has been activated. Please restart your client!")
-    sleep(10)
-    sys.exit()
+async def lobbyDodge(connection):
+    timer = [5, 4, 3, 2, 1]
+    for x in timer:
+        system('cls')
+        print(f"[▲] You will be removed from your current lobby in [{x}s]")
+        sleep(1)
+        if x == 1:
+            await connection.request("POST", "/lol-gameflow/v1/session/request-enter-gameflow")
+            await connection.request("DELETE", "/lol-lobby/v2/lobby")
+            system('cls')
+            print("[▲] You have been removed from the lobby.")
+            sleep(3)
+
+async def multiClient(connection):
+    response = await connection.request("GET", "/data-store/v1/install-dir")
+    dire = await response.json()
+    clientLocation = dire + "\LeagueClient.exe"
+    leagueClient = r'{}'.format(clientLocation)
+    print("[▲] A new client was successfully opened.")
+    sub.call([leagueClient, "--allow-multiple-clients"])
 
 @connector.ready
 async def connect(connection):
     Menu()
-    newLine()
-    await getInfo(connection)
     await getOption(connection)
     while menuOption !=0:
         if menuOption == 1:
@@ -289,11 +294,19 @@ async def connect(connection):
             Menu()
             await getOption(connection)
         elif menuOption == 8:
-            await lobbyCrasher(connection)
+            await getTristana(connection)
             Menu()
             await getOption(connection)
         elif menuOption == 9:
-            await getTristana(connection)
+            await lobbyCrasher(connection)
+            Menu()
+            await getOption(connection)
+        elif menuOption == 10:
+            await lobbyDodge(connection)
+            Menu()
+            await getOption(connection)
+        elif menuOption == 11:
+            await multiClient(connection)
             Menu()
             await getOption(connection)
         else:
