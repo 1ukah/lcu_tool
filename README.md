@@ -1,4 +1,4 @@
-*an application that combine requests using **LCU API** into a hub of features for **League of Legends***
+*An application that combine requests using **LCU API** into a hub of features for **League of Legends***
 
 ## Features
 **Change Availability**
