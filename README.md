@@ -1,5 +1,4 @@
-# PHTOOLS
-*An application that combine requests using **LCU API** into a hub of features for **League of Legends**.*
+*an application that combine requests using **LCU API** into a hub of features for **League of Legends***
 
 ## Features
 **Change Availability**
@@ -29,9 +28,6 @@
 **Free Tristana + Riot Girl skin**
 ```Gives you the champion Tristana and Riot Girl skin.```
 
-### Screenshot & Video Showcase
-![ScreenShot1](https://i.imgur.com/7cTsbBJ.png)
-[Video Showcase](https://youtu.be/e0pV9hGkOKU)
 
 
 
