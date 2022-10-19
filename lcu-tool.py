@@ -7,7 +7,7 @@ import sys
 import psutil
 import subprocess as sub
 
-ctypes.windll.kernel32.SetConsoleTitleW("▶ PHTOOLS ◀")
+ctypes.windll.kernel32.SetConsoleTitleW("lcu-tool")
 disable_warnings()
 connector = Connector()
 
@@ -24,7 +24,7 @@ while "LeagueClient.exe" not in (p.name() for p in psutil.process_iter()):
 
 def Menu():
     system('cls')
-    print("[PHTOOLS] Requests")
+    print("[lcu-tool] Requests")
     newLine()
     print("""[0]  -> Exit
 [1]  -> Change Availability
