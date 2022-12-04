@@ -5,10 +5,10 @@
 ```Changes your status on the league client(Online, Offline, Away & LoL+).```
 
 **Icon Changer by the [Icon ID](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/)**
-```Changes your profile icon to any icon in the game instantly.```
+```Changes your profile icon to any icon instantly.```
 
 **Background Changer by the [Background ID](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/)**
-```Changes your profile background to any background in the game instantly.```
+```Changes your profile background to any background instantly.```
 
 **Mass Delete**
 ```Clean your friend list instantly.```
